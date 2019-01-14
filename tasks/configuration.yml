@@ -1,1 +1,44 @@
 ---
+- name: ensure firewalld is running and enabled on boot
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+  when: firewalld_disable == false
+
+- name: ensure firewalld is stopped and disabled on boot
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+  when: firewalld_disable == true
+
+- name: add firewalld rules for services from vars
+  firewalld:
+    service: '{{ item.service }}'
+    zone: '{{ item.zone | default ("public") }}'
+    permanent: '{{ item.permanent | default (True) }}'
+    state: '{{ item.state | default ("enabled") }}'
+  with_items: '{{ firewalld_allow_services }}'
+  notify: firewalld complete reload
+  when: firewalld_disable == false
+
+- name: add firewalld rules for ports from vars
+  firewalld:
+    port: '{{ item.port }}'
+    zone: '{{ item.zone | default ("public") }}'
+    permanent: '{{ item.permanent | default (True) }}'
+    state: '{{ item.state | default ("enabled") }}'
+  with_items: '{{ firewalld_allow_ports }}'
+  notify: firewalld complete reload
+  when: firewalld_disable == false
+
+- name: add firewalld rich rules
+  firewalld:
+    rich_rule: '{{ item.rich_rule }}'
+    zone: '{{ item.zone | default ("public") }}'
+    permanent: '{{ item.permanent | default (True) }}'
+    state: '{{ item.state | default ("enabled") }}'
+  with_items: '{{ firewalld_rich_rules }}'
+  notify: firewalld complete reload
+  when: firewalld_disable == false

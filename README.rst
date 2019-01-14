@@ -1,5 +1,5 @@
 ===============
-ROLE _TEMPLATE
+ROLE firewalld
 ===============
 
 .. image:: https://img.shields.io/github/license/adfinis-sygroup/ansible-role-_template.svg?style=flat-square
@@ -50,19 +50,18 @@ passed in as parameters) is always nice for users too:
 
   - hosts: servers
     roles:
-       - { role: adfinis-sygroup._template }
+       - { role: adfinis-sygroup.firewalld }
 
 
 License
 ========
 
-`GPL-3.0 <https://github.com/adfinis-sygroup/ansible-role-_template/blob/master/LICENSE>`_
+`GPL-3.0 <https://github.com/adfinis-sygroup/ansible-role-firewalld/blob/master/LICENSE>`_
 
 
 Author Information
 ===================
 
-_template role was written by:
+firewalld role was written by:
 
 * Adfinis SyGroup AG | `Website <https://www.adfinis-sygroup.ch/>`_ | `Twitter <https://twitter.com/adfinissygroup>`_ | `GitHub <https://github.com/adfinis-sygroup>`_
-

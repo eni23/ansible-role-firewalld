@@ -1,1 +1,8 @@
 ---
+- name: install firewalld related packages
+  package:
+    name: '{{ firewalld_packages }}'
+    state: present
+  tags:
+    - 'role::firewall'
+    - 'role::firewalld:install'
